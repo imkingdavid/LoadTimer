@@ -59,13 +59,6 @@ class LoadTimer
 	}
 
 	/**
-	 * Give the load time back to the user, either via echo() or return
-	 *
-	 * @param bool $echo Decide whether to echo the result or return it
-	 * @return int|null If $echo is false, return the integer value of the page load time
-	 */
-
-	/**
 	 * Adds together integer values in an array
 	 *
 	 * @param array $vals Array of integer values to add together
