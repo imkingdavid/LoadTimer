@@ -24,6 +24,8 @@ class LoadTimer
 
 	/**
 	 * Start the page load timer
+	 *
+	 * @param bool $autoStart Whether to start the timer when the class is initialized
 	 */
 	function __construct($autoStart = false)
 	{
@@ -56,7 +58,7 @@ class LoadTimer
 	 *
 	 * @param bool $echo Whether to echo the string or not
 	 * @param string $string String formatted for sprintf()
-	 * @return int|null If $echo is false, returns the integer value of the load time
+	 * @return float Returns the load time
 	 */
 	function end($echo = false, $string = 'Page load took %f seconds')
 	{

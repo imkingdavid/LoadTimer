@@ -11,20 +11,21 @@ This may be used as needed for any purpose, free or commercial with no restricti
 This product is provided as is with no warranty.
 
 ##Usage
-Using the class requires you to simply add three lines to your code (or two if you autoload classes).
-Put the following code as close to the top of your PHP file as you can. (Or if you're just wanting to
-measure time it takes to do a certain operation, place this just before that operation runs).
-```	include('LoadTimer.php');
-	$timer = new LoadTimer;```
+Pop the following code at the start of your page.
+    
+    include('LoadTimer.php');
+    $timer = new LoadTimer();
+> Tip: The class does not automatically begin timing unless the constructor's first argument is set to true like so: `$timer = new LoadTimer(true);`
 
-And then, following your final line of PHP code (or the last line in the operation you are measuring),
-simply call the end() method.
-```	$timer->end();```
+If you choose not to make the timer auto-start, you will need to start it yourself. Go to the point in your file at which you wish to begin timing, and add the following line:
 
-Note that by default, the end() method echos the result like so:
- > Page load took $load_time seconds.
+    $timer->start();
+> Tip: `$timer->start()` overwrites the time at which the timer started. You can use this to your advantage, if you wish to have it begin at a different point in a script if a certain condition is met.
 
-You can make it return the result (only the seconds) by making the first argument false.
-You can change the language text that is outputted by changing the second argument. It should be a
-string formatted for sprintf().
-```	$load_time = $timer->end(false);```
+Finally, when you want the timer to end, place the final line of code.
+`	$timer->end();`
+
+Note that by default, the end() method *returns* the load time.
+You can have it echo a string as well by setting the first argument of end() to true. You can modify the default string that is echo'd by setting the second argument of end() to a string that contains %f (sprintf() is run when the string is echo'd).
+    
+    $load_time = $timer->end(true, 'Page loaded in %f seconds.');
