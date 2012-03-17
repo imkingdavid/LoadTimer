@@ -12,20 +12,31 @@ class LoadTimer
 	/**
 	 * @var The start time for the page load
 	 */
-	public $start = 0;
+	private $start;
 	/**
 	 * @var The end time for the page load
 	 */
-	public $end = 0;
+	private $end;
 	/**
 	 * @var The difference between the end and start time, aka the load time
 	 */
-	public $load_time = 0;
+	private $load_time;
 
 	/**
 	 * Start the page load timer
 	 */
-	function __construct()
+	function __construct($autoStart = false)
+	{
+		if($autoStart)
+			$this->start();
+	}
+
+	/**
+	 * Start the timer
+	 *
+	 * @return null
+	 */
+	function start()
 	{
 		$this->start = $this->currentTime();
 	}
@@ -35,9 +46,9 @@ class LoadTimer
 	 *
 	 * @return int Current time
 	 */
-	function currentTime()
+	public function currentTime()
 	{
-		return $this->add(explode(' ', microtime()));
+		return microtime(true);
 	}
 
 	/**
@@ -47,30 +58,14 @@ class LoadTimer
 	 * @param string $string String formatted for sprintf()
 	 * @return int|null If $echo is false, returns the integer value of the load time
 	 */
-	function end($echo = true, $string = 'Page load took %f seconds')
+	function end($echo = false, $string = 'Page load took %f seconds')
 	{
 		$this->end = $this->currentTime();
 		$this->load_time = $this->end - $this->start;
 
 		if($echo) 
 			echo sprintf($string, $this->load_time);
-		else
-			return $this->load_time;
-	}
-
-	/**
-	 * Adds together integer values in an array
-	 *
-	 * @param array $vals Array of integer values to add together
-	 * @return int Total of array values added together
-	 */
-	function add($vals = array())
-	{
-		$total = 0;
-		for($i = 0; $i < count($vals); $i++)
-		{
-			$total += $vals[$i];
-		}
-		return $total;
+		
+		return $this->load_time;
 	}
 }
