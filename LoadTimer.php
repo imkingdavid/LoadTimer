@@ -7,16 +7,21 @@
  *
  * Copyright (c) 2012 - David King <imkingdavid@gmail.com>
  */
+
+namespace imkingdavid\LoadTimer;
+
 class LoadTimer
 {
 	/**
 	 * @var The start time for the page load
 	 */
 	private $start;
+	
 	/**
 	 * @var The end time for the page load
 	 */
 	private $end;
+	
 	/**
 	 * @var The difference between the end and start time, aka the load time
 	 */
@@ -29,8 +34,9 @@ class LoadTimer
 	 */
 	function __construct($autoStart = false)
 	{
-		if($autoStart)
+		if($autoStart) {
 			$this->start();
+		}
 	}
 
 	/**
@@ -38,7 +44,7 @@ class LoadTimer
 	 *
 	 * @return null
 	 */
-	function start()
+	public function start()
 	{
 		$this->start = $this->currentTime();
 	}
@@ -60,14 +66,25 @@ class LoadTimer
 	 * @param string $string String formatted for sprintf()
 	 * @return float Returns the load time
 	 */
-	function end($echo = false, $string = 'Page load took %f seconds')
+	public function end($echo = false, $string = 'Page load took %f seconds')
 	{
 		$this->end = $this->currentTime();
-		$this->load_time = $this->end - $this->start;
+		$this->load_time = $this->getLoadTime();
 
-		if($echo) 
+		if ($echo) {
 			echo sprintf($string, $this->load_time);
+		}
 		
 		return $this->load_time;
+	}
+
+	/**
+	 * Return the load time
+	 *
+	 * @return float Returns the load time
+	 */
+	public function getLoadTime()
+	{
+		return $this->load_time ?: $this->end - $this->start;
 	}
 }
