@@ -6,7 +6,7 @@ Pull Request to fix it (see below).
 Copyright (c) 2012 - David King (imkingdavid@gmail.com)
 
 ## Requirements
-PHP 5.3
+PHP 5.4
 
 ## License
 This may be used as needed for any purpose, free or commercial with no
