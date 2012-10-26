@@ -68,7 +68,8 @@ returns an array like so:
 			'After execute', // Lap message
 			'12345678', // Lap timestamp
 		)
-);```
+);
+```
 
 Finally, when you want the timer to end, place the final line of code.
 ```php
