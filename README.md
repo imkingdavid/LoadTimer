@@ -43,6 +43,33 @@ $timer->start();
 > can use this to your advantage, if you wish to have it begin at a different
 > point in a script if a certain condition is met.
 
+If you want to mark notable points in the code without ending the timer
+altogether, you can use the `$timer->lap()` method. It takes a single argument
+which is a string message that simply describes the lap. It defaults to:
+`Lap #` where # is the number of laps before the current one, plus one.
+```php
+// Important code section:
+$timer->lap('Before execute');
+$script->execute();
+$timer->lap('After execute');
+```
+
+Later, you can access all of your laps using the `$timer->laps()` method. It
+returns an array like so:
+```Array
+(
+	[0]	=> Array
+		(
+			'Before execute', // Lap message
+			'01234567', // Lap timestamp
+		),
+	[1]	=> Array
+		(
+			'After execute', // Lap message
+			'12345678', // Lap timestamp
+		)
+);```
+
 Finally, when you want the timer to end, place the final line of code.
 ```php
 $timer->end();
