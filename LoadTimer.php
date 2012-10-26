@@ -13,26 +13,35 @@ namespace imkingdavid\LoadTimer;
 class LoadTimer
 {
 	/**
-	 * @var The start time for the page load
+	 * The start time for the page load
+	 * @var int
 	 */
-	private $start;
+	protected $start = null;
 	
 	/**
-	 * @var The end time for the page load
+	 * The end time for the page load
+	 * @var int
 	 */
-	private $end;
+	protected $end = null;
+
+	/**
+	 * The laps marked by the timer
+	 * @var array
+	 */
+	protected $laps = [];
 	
 	/**
-	 * @var The difference between the end and start time, aka the load time
+	 * The difference between the end and start time, aka the load time
+	 * @var int
 	 */
-	private $load_time;
+	protected $load_time = null;
 
 	/**
 	 * Start the page load timer
 	 *
 	 * @param bool $autoStart Whether to start the timer when the class is initialized
 	 */
-	function __construct($autoStart = false)
+	public function __construct($autoStart = false)
 	{
 		if($autoStart) {
 			$this->start();
@@ -54,25 +63,64 @@ class LoadTimer
 	 *
 	 * @return int Current time
 	 */
-	public function currentTime()
+	protected function currentTime()
 	{
 		return microtime(true);
+	}
+
+	/**
+	* Add a lap
+	*
+	* @param string $message Label for the lap
+	*/
+	public function lap($message = '')
+	{
+		if (empty($message)) {
+			$message = 'Lap ' . ($this->lapCount() + 1);
+		}
+
+		$this->laps[] = [
+			$message,
+			$this->currentTime(),
+		];
+	}
+
+	/**
+	* Get array of laps
+	*
+	* @return array
+	*/
+	public function laps()
+	{
+		return $this->laps;
+	}
+
+	/**
+	* Return total number of laps
+	*
+	* @return int
+	*/
+	public function lapCount()
+	{
+		return count($this->laps());
 	}
 
 	/**
 	 * Finish up the load time script
 	 *
 	 * @param bool $echo Whether to echo the string or not
-	 * @param string $string String formatted for sprintf()
+	 * @param string $message String formatted for sprintf()
 	 * @return float Returns the load time
 	 */
-	public function end($echo = false, $string = 'Page load took %f seconds')
+	public function end($echo = false, $message = 'Page load took %f seconds')
 	{
-		$this->end = $this->currentTime();
-		$this->load_time = $this->getLoadTime();
+		if ($this->load_time === null && $this->end === null) {
+			$this->end = $this->currentTime();
+			$this->load_time = $this->getLoadTime();
+		}
 
 		if ($echo) {
-			echo sprintf($string, $this->load_time);
+			echo sprintf($message, $this->load_time);
 		}
 		
 		return $this->load_time;
@@ -81,7 +129,7 @@ class LoadTimer
 	/**
 	 * Return the load time
 	 *
-	 * @return float Returns the load time
+	 * @return float Returns the total load time
 	 */
 	public function getLoadTime()
 	{
