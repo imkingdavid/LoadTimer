@@ -1,0 +1,6 @@
+{
+	"name": "imkingdavid/LoadTimer",
+	"require": {
+		"php": ">=5.4.0"
+	},
+}
