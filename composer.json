@@ -1,5 +1,6 @@
 {
 	"name": "imkingdavid/load-timer",
+	"license": "MIT",
 	"require": {
 		"php": ">=5.4.0"
 	}
