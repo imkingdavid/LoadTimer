@@ -19,15 +19,22 @@ create a ticket and/or a Pull Request. I do not have any specific guidelines
 for commit messages, other than that they are brief and explain exactly what
 is changed.
 
-## Usage
-Pop the following code at the start of your page.
+## Installation & Usage
+This repository is a Composer-enabled package. For information about
+installing and using Composer, check out http://getcomposer.org.
+
+Place the following code at the start of your page.
 ```php
 use imkingdavid\LoadTimer;
 
-include('LoadTimer.php');
+// If you are using Composer, you should include the composer autoload.php
+// file; otherwise, include the following line:
+// include('LoadTimer.php');
+
+// Next, instantiate the class
 $timer = new LoadTimer();
 ```
-> Tip: The class does not automatically begin timing unless the constructor's
+> Tip: The class does NOT automatically begin timing unless the constructor's
 > first argument is set to true like so:
 > ```php
 $timer = new LoadTimer(true);
