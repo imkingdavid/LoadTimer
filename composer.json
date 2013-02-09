@@ -1,5 +1,5 @@
 {
-	"name": "imkingdavid/LoadTimer",
+	"name": "imkingdavid/load-timer",
 	"require": {
 		"php": ">=5.4.0"
 	}
